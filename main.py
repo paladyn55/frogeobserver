@@ -1,12 +1,13 @@
 #1 - import dependencies
-from traceback import FrameSummary
 from sklearn.metrics import accuracy_score
 import numpy as np
 import os
 import matplotlib.image as img
 import matplotlib.pyplot as plt
 from PIL import Image
-
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.models import Sequential
 
 #2 - load data
 fdir = '/home/blop/frogeobserver/sorted/frogs'
@@ -23,4 +24,5 @@ for i in os.listdir(tdir):
     tarr.append(npa)
     
 #3 - build and compile model
+
 #4 - fir predict and evaluate
