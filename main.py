@@ -47,8 +47,7 @@ model = Sequential([
 ])
 model.compile(
     optimizer='adam',
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(
-    from_logits=True),
+    loss=tf.keras.losses.BinaryCrossentropy(),
     metrics=['accuracy'])
 model.summary()
 #4 - fit predict and evaluate
@@ -59,3 +58,6 @@ model.fit(
     epochs=10,
     batch_size=5
     )
+
+
+# %%
