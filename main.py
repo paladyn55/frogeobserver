@@ -1,5 +1,4 @@
 #1 - import dependencies
-#%%
 import tensorflow as tf
 from sklearn.metrics import accuracy_score
 import numpy as np
@@ -12,7 +11,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
 #2 - load data
-#%%
+
 tr_dir = '/home/blop/frogeobserver/dataset/train'
 va_dir = '/home/blop/frogeobserver/dataset/validation'
 
@@ -32,7 +31,7 @@ class_names = tds.class_names
 print(class_names)
 
 #3 - build and compile model
-#%%
+
 model = Sequential([
     layers.Rescaling(1./255, input_shape=(224, 224, 3)),
     layers.Conv2D(16, 3, padding='same', activation='relu'),
@@ -51,13 +50,12 @@ model.compile(
     metrics=['accuracy'])
 model.summary()
 #4 - fit predict and evaluate
-#%%
+
 model.fit(
     x=tds,
     validation_data=vds,
-    epochs=10,
+    epochs=100,
     batch_size=5
     )
 
-
-# %%
+model.save('model.h5')
