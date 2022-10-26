@@ -11,8 +11,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
 #2 - load data
-fdir = '/home/blop/frogeobserver/sorted/frogs/'
-tdir = '/home/blop/frogeobserver/sorted/toads/'
+ds_dir = '/home/blop/frogeobserver/dataset/'
 
 #for i in os.listdir(fdir):
 #    imgpath = os.path.join(fdir, i)
@@ -22,19 +21,19 @@ tdir = '/home/blop/frogeobserver/sorted/toads/'
 #    imgpath = os.path.join(tdir, i)
 #    npa = img.imread(imgpath)
 #    tarr.append(npa)
-ftds = tf.keras.utils.image_dataset_from_directory(
-    fdir,
+tds = tf.keras.utils.image_dataset_from_directory(
+    ds_dir,
     shuffle=True,
     image_size=(224, 224),
-    validation_split=0.8,
+    validation_split=0.75,
     subset="training",
     batch_size=None,
     seed=123)
-fvds = tf.keras.utils.image_dataset_from_directory(
-    fdir,
+vds = tf.keras.utils.image_dataset_from_directory(
+    ds_dir,
     shuffle=True,
     image_size=(224, 224),
-    validation_split=0.2,
+    validation_split=0.25,
     subset="validation",
     batch_size=None,
     seed=123)
