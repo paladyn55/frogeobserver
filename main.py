@@ -13,14 +13,7 @@ from tensorflow.keras.models import Sequential
 #2 - load data
 tr_dir = '/home/blop/frogeobserver/dataset/train'
 va_dir = '/home/blop/frogeobserver/dataset/validation'
-#for i in os.listdir(fdir):
-#    imgpath = os.path.join(fdir, i)
-#    npa = img.imread(imgpath)
-#    farr.append(npa)
-#for i in os.listdir(tdir):
-#    imgpath = os.path.join(tdir, i)
-#    npa = img.imread(imgpath)
-#    tarr.append(npa)
+
 tds = tf.keras.utils.image_dataset_from_directory(
     tr_dir,
     shuffle=True,
@@ -37,7 +30,29 @@ vds = tf.keras.utils.image_dataset_from_directory(
     subset="validation",
     batch_size=None,
     seed=123)
-class_names = tds.class_names
+class_names = vds.class_names
 print(class_names)
+
 #3 - build and compile model
-#4 - fir predict and evaluate
+model = Sequential([
+    layers.Rescaling(1./255, input_shape=(224, 224, 3)),
+    layers.Conv2D(16, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Conv2D(32, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Conv2D(64, 3, padding='same', activation='relu'),
+    layers.MaxPooling2D(),
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(2)
+])
+model.compile(
+    optimizer='adam',
+    loss=tf.keras.losses.SparseCategoricalCrossentropy(
+    from_logits=True),
+    metrics=['accuracy'])
+model.summary()
+#4 - fit predict and evaluate
+model.fit(x=tds,
+    epochs=10m
+    validation_data=vds)
