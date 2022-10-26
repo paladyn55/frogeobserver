@@ -11,8 +11,8 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
 #2 - load data
-ds_dir = '/home/blop/frogeobserver/dataset/'
-
+tr_dir = '/home/blop/frogeobserver/dataset/train'
+va_dir = '/home/blop/frogeobserver/dataset/validation'
 #for i in os.listdir(fdir):
 #    imgpath = os.path.join(fdir, i)
 #    npa = img.imread(imgpath)
@@ -22,7 +22,7 @@ ds_dir = '/home/blop/frogeobserver/dataset/'
 #    npa = img.imread(imgpath)
 #    tarr.append(npa)
 tds = tf.keras.utils.image_dataset_from_directory(
-    ds_dir,
+    tr_dir,
     shuffle=True,
     image_size=(224, 224),
     validation_split=0.75,
@@ -30,12 +30,14 @@ tds = tf.keras.utils.image_dataset_from_directory(
     batch_size=None,
     seed=123)
 vds = tf.keras.utils.image_dataset_from_directory(
-    ds_dir,
+    va_dir,
     shuffle=True,
     image_size=(224, 224),
     validation_split=0.25,
     subset="validation",
     batch_size=None,
     seed=123)
+class_names = tds.class_names
+print(class_names)
 #3 - build and compile model
 #4 - fir predict and evaluate
